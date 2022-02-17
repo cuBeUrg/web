@@ -1,30 +1,56 @@
 <!doctype html>
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Proiect - Tehnologii web - Features</title>
-        <meta name="description" content="Informatii despre C#.">
-        <meta name="author" content="Dan">
+    <title>Proiect - Tehnologii web - Features</title>
+    <meta name="description" content="Informatii despre C#.">
+    <meta name="author" content="Dan">
 
-    </head>
+    <link rel="stylesheet/less" type="text/css" href="../styles/styles.less" />
+</head>
 
-    <body>
-        <img src="../images/logo.png" alt="C#">
-        <h1>C# - Programming language</h1>
+<body class="main">
+<div class="header">
+    <div class="logo">
+        <a href="../index.html"><img src="../images/logo.png" alt="C#"></a>
+    </div>
+    <div class="nav">
+        <a href="../pages/history.html"><p>History</p></a>
+        <a href="../pages/features.html"><p>Features</p></a>
+        <a href="../pages/examples.html"><p>Examples</p></a>
+    </div>
+</div>
 
-        <p> Portability <br>
-            By design, C# is the programming language that most directly reflects the underlying Common Language Infrastructure (CLI).[60] Most of its intrinsic types correspond to value-types implemented by the CLI framework. However, the language specification does not state the code generation requirements of the compiler: that is, it does not state that a C# compiler must target a Common Language Runtime, or generate Common Intermediate Language (CIL), or generate any other specific format. Theoretically, a C# compiler could generate machine code like traditional compilers of C++ or Fortran.
+<div class="content">
+    <div class="left" style="flex-direction: row">
+        <div class="feature">
+            <h1>Portability</h1>
+            <span>By design, C# is the programming language that most directly reflects the underlying Common Language Infrastructure (CLI).</span>
+        </div>
+        <div class="feature">
+            <h1>Typing</h1>
+            <span>C# supports strongly, implicitly typed variable declarations with the keyword var, and implicitly typed arrays with the keyword new[] followed by a collection initializer.</span>
+        </div>
+        <div class="feature">
+            <h1>Property</h1>
+            <span>C# supports classes with properties. The properties can be simple accessor functions with a backing field, or implement getter and setter functions.</span>
+        </div>
+        <div class="feature">
+            <h1>Namespace</h1>
+            <span>A C# namespace provides the same level of code isolation as a Java package or a C++ namespace, with very similar rules and features to a package</span>
+        </div>
+    </div>
+    <div class="right">
+        <h1>Facts</h1>
+        <p>
+            C# language is good for developing games. It is also used by Unity (the majority leader in commercial game engines) to develop games.
         </p>
+    </div>
+</div>
+</body>
 
-        <p> Typing <br>
-            C# is more type safe than C++. The only implicit conversions by default are those that are considered safe, such as widening of integers. This is enforced at compile-time, during JIT, and, in some cases, at runtime. No implicit conversions occur between Booleans and integers, nor between enumeration members and integers (except for literal 0, which can be implicitly converted to any enumerated type). Any user-defined conversion must be explicitly marked as explicit or implicit, unlike C++ copy constructors and conversion operators, which are both implicit by default.
-        </p>
-
-        <p> Language Integrated Query <br>
-            C# has the ability to utilize LINQ through the .NET Framework. A developer can query a variety of data sources, provided IEnumerable interface is implemented on the object. This includes XML documents, an ADO.NET dataset, and SQL databases.
-        </p>
-    </body>
+<script src="../scripts/less.min.js" type="text/javascript"></script>
 </html>
