@@ -7,7 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Proiect - Tehnologii web</title>
     </head>
+    <body>
         <button onclick="topFunction()" id="scTop">Top</button>
+        <div id="notification">
+            <div class="box">
+                <span id="notText"></span>
+            </div>
+        </div>
         <div class="navbar">
             <div class="left-part">
                 <img src="./images/logo.png">
@@ -18,6 +24,8 @@
                     <span><a href="#second">About</a></span>
                     <span><a href="#third">Partners</a></span>
                     <span><a href="#fourth">About us</a></span>
+                    <span><a href="http://localhost/tehnologiiWeb/pages/login.php">Login</a></span>
+                    <span><a href="http://localhost/tehnologiiWeb/pages/register.php">Register</a></span>
                 </div>
             </div>
         </div>
@@ -58,12 +66,30 @@
         <section id="fourth">
             <h2>Contact us</h2>
             <hr>
-
-            <textarea name="message" id="message" cols="60" rows="7"></textarea>
+            <form action="" method="post">
+                <textarea name="message" id="message" cols="60" rows="7"></textarea>
+                <button type="submit">Submit</button>
+            </form>
         </section>
-    <body>
-        
     </body>
     <script src="./scripts/less.min.js" type="text/javascript"></script>
     <script src="./scripts/script.js" type="text/javascript"></script>
 </html>
+
+<?php
+
+include './backend/database.php';
+
+if ($_POST) {
+    $recievedFeedback = $_POST["message"];
+
+    $sql = "INSERT INTO feedback (feedbackMessage) VALUES ('$recievedFeedback')";
+
+    if (mysqli_query($databaseConnection, $sql)){
+        echo '<script>showNotification("Login sent.");</script>';
+    } else{
+        echo "Error.";
+    };
+};
+
+?>

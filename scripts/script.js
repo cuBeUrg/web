@@ -17,6 +17,17 @@ window.addEventListener('load', (event) => {
 
 let scTop = document.getElementById("scTop");
 
+function showNotification(notificationMsg) {
+    let notificationElement = document.getElementById('notification');
+    let notificationBox = document.getElementById('notText');
+    notificationElement.style.visibility = 'visible';
+    notificationBox.innerText = notificationMsg;
+    
+    setTimeout(() => {
+        notificationElement.style.visibility = 'hidden';
+    }, 3000);
+};
+
 function scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         scTop.style.display = "block";
