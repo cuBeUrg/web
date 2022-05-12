@@ -23,7 +23,7 @@
                     <div class="title">
                         <h2>Register</h2>
                     </div>
-                    <form action="" method="post">
+                    <form action="" name="register" method="post">
                         <div class="inputs">
                             <input type="text" name="username"></input>
                             <input type="password" name="password"></input>
@@ -41,25 +41,49 @@
     </body>
     <script src="../scripts/less.min.js" type="text/javascript"></script>
     <script src="../scripts/script.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script>
+        $(function(){
+            $("form[name='register']").validate({
+                rules: {
+                    username: "required",
+                    password: "required"
+                },
+
+                messages: {
+                    username: "The username is required.",
+                    password: "The password in required."
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 </html>
 
 <?php
 
 include '../backend/database.php';
 
-if ($_POST) {
-    $recievedName = $_POST["username"];
-    $recievedPassword = $_POST["password"];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST["username"]) && isset($_POST["password"])) {
+        $recievedName = $_POST["username"];
+        $recievedPassword = $_POST["password"];
 
-    $sql = "INSERT INTO users (name, password) VALUES ('$recievedName', '$recievedPassword')";
+        if (isset($recievedName) && isset($recievedPassword)) {
+            $sql = "INSERT INTO users (name, password) VALUES ('$recievedName', '$recievedPassword')";
 
-    $result = mysqli_query($databaseConnection, $sql);
+            $result = mysqli_query($databaseConnection, $sql);
 
-    if ($result){
-        echo '<script>showNotification("User registered.");</script>';
-    } else{
-        echo '<script>showNotification("Querry error.");</script>';;
-    };
+            if ($result){
+                echo '<script>showNotification("User registered.");</script>';
+            } else{
+                echo '<script>showNotification("Querry error.");</script>';;
+            };
+        }
+    }
 };
 
 ?>

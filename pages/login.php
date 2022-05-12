@@ -23,7 +23,7 @@
                     <div class="title">
                         <h2>Login</h2>
                     </div>
-                    <form action="" method="post">
+                    <form action="" name="login" method="post">
                         <div class="inputs">
                             <input type="text" name="username"></input>
                             <input type="password" name="password"></input>
@@ -41,29 +41,52 @@
     </body>
     <script src="../scripts/less.min.js" type="text/javascript"></script>
     <script src="../scripts/script.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script>
+        $(function(){
+            $("form[name='login']").validate({
+                rules: {
+                    username: "required",
+                    password: "required"
+                },
+
+                messages: {
+                    username: "The username is required.",
+                    password: "The password in required."
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 </html>
 
 <?php
 
 include '../backend/database.php';
 
-if ($_POST) {
-    $recievedName = $_POST["username"];
-    $recievedPassword = $_POST["password"];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST["username"]) && isset($_POST["password"])) {
+        $recievedName = $_POST["username"];
+        $recievedPassword = $_POST["password"];
 
-    $sql = "SELECT id, name, password FROM users WHERE name='$recievedName' AND password='$recievedPassword'";
+        if (isset($recievedName) && isset($recievedPassword)) {
+            $sql = "SELECT id, name, password FROM users WHERE name='$recievedName' AND password='$recievedPassword'";
+            $result = mysqli_query($databaseConnection, $sql);
 
-    $result = mysqli_query($databaseConnection, $sql);
-
-    if ($result){
-        if ($result->num_rows > 0) {
-            echo '<script>showNotification("User found.");</script>';
-        } else {
-            echo '<script>showNotification("User not found.");</script>';
+            if ($result){
+                if ($result->num_rows > 0) {
+                    echo '<script>showNotification("User found.");</script>';
+                } else {
+                    echo '<script>showNotification("User not found.");</script>';
+                }
+            } else{
+                echo '<script>showNotification("Querry error.");</script>';;
+            };
         }
-    } else{
-        echo '<script>showNotification("Querry error.");</script>';;
-    };
+    }
 };
 
 ?>

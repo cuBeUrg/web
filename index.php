@@ -66,7 +66,7 @@
         <section id="fourth">
             <h2>Contact us</h2>
             <hr>
-            <form action="" method="post">
+            <form action="" name="feedback" method="post">
                 <textarea name="message" id="message" cols="60" rows="7"></textarea>
                 <button type="submit">Submit</button>
             </form>
@@ -74,22 +74,44 @@
     </body>
     <script src="./scripts/less.min.js" type="text/javascript"></script>
     <script src="./scripts/script.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script>
+        $(function(){
+            $("form[name='feedback']").validate({
+                rules: {
+                    message: "required",
+                },
+
+            messages: {
+                message: "The message is required.",
+            },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+    </script>
 </html>
 
 <?php
 
 include './backend/database.php';
 
-if ($_POST) {
-    $recievedFeedback = $_POST["message"];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST["message"])) {
+        $recievedFeedback = $_POST["message"];
+        
+        if (isset($recievedFeedback)) {
+            $sql = "INSERT INTO feedback (feedbackMessage) VALUES ('$recievedFeedback')";
 
-    $sql = "INSERT INTO feedback (feedbackMessage) VALUES ('$recievedFeedback')";
-
-    if (mysqli_query($databaseConnection, $sql)){
-        echo '<script>showNotification("Login sent.");</script>';
-    } else{
-        echo "Error.";
-    };
+            if (mysqli_query($databaseConnection, $sql)){
+                echo '<script>showNotification("Login sent.");</script>';
+            } else{
+                echo "Error.";
+            };
+        };
+    }
 };
 
 ?>
